@@ -268,10 +268,13 @@ namespace Starmans_Jobs
             jobs = JsonConvert.DeserializeObject<List<Job>>(jobsJson);
             schools = JsonConvert.DeserializeObject<List<School>>(schoolJson);
 
-            if (Game.Player.Character.Model == new Model("player_two")) currentPlayer = saveData.playerData.FirstOrDefault(x => x.player == Classes.Player.trevor); // If you're playing as Trevor set the current player to be Trevors data
-            else if (Game.Player.Character.Model == new Model("player_zero")) currentPlayer = saveData.playerData.FirstOrDefault(x => x.player == Classes.Player.michael); // If you're playing as Michael set the current player to be Michaels data
-            else if (Game.Player.Character.Model == new Model("player_one")) currentPlayer = saveData.playerData.FirstOrDefault(x => x.player == Classes.Player.franklin); // If you're playing as Franklin set the current player to be Franklins data
-            else currentPlayer = saveData.playerData.FirstOrDefault(x => x.player == Classes.Player.other); // If you're playing as a non story character set the current player to be the global playerdata
+            if (saveData != null && saveData.playerData != null)
+			{
+				if (Game.Player.Character.Model == new Model("player_two")) currentPlayer = saveData.playerData.FirstOrDefault(x => x != null && x.player == Classes.Player.trevor); // If you're playing as Trevor set the current player to be Trevors data
+				else if (Game.Player.Character.Model == new Model("player_zero")) currentPlayer = saveData.playerData.FirstOrDefault(x => x != null && x.player == Classes.Player.michael); // If you're playing as Michael set the current player to be Michaels data
+				else if (Game.Player.Character.Model == new Model("player_one")) currentPlayer = saveData.playerData.FirstOrDefault(x => x != null && x.player == Classes.Player.franklin); // If you're playing as Franklin set the current player to be Franklins data
+				else currentPlayer = saveData.playerData.FirstOrDefault(x => x.player == Classes.Player.other); // If you're playing as a non story character set the current player to be the global playerdata
+			}
         }
 
         private static void Setup()
